@@ -11,15 +11,27 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
   strict: true,
   state: {
-    recSalePrice: 800,
+    recSalePrice: 1000,
     minTxAmount: 238,
   },
   mutations: {
     setSalePrice(state, value) {
       state.recSalePrice = value
+      localStorage.setItem('saleprice', value)
     },
     setMinTxAmount(state, value) {
       state.minTxAmount = value
+      localStorage.setItem('mintx', value)
+    },
+  },
+  getters: {
+    getSalePrice: (state) => {
+      const storage = localStorage.getItem('saleprice')
+      return storage !== null ? storage : state.recSalePrice
+    },
+    getMinTxAmount: (state) => {
+      const storage = localStorage.getItem('mintx')
+      return storage !== null ? storage : state.minTxAmount
     },
   },
 })

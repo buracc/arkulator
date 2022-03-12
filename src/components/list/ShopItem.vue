@@ -38,7 +38,7 @@ export default {
   computed: {
     recSalePrice: {
       get() {
-        return this.$store.state.recSalePrice
+        return this.$store.getters.getSalePrice
       },
     },
   },
@@ -53,16 +53,16 @@ export default {
       required: true,
     },
     amount: {
-      type: Number,
+      type: String,
       required: true,
     },
     price: {
-      type: Number,
+      type: String,
       required: true,
     },
     amountMultiplier: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: '1',
       required: false,
     },
   },

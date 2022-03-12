@@ -132,7 +132,7 @@
                 price="20"
               />
               <ShopItem
-                image-url="https://lostarkcodex.com/icons/use_7_155.webp"
+                image-url="https://lostarkcodex.com/icons/use_7_156.webp"
                 name="Great Honor leapstone"
                 amount="5"
                 price="50"

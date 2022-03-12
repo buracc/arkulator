@@ -105,7 +105,7 @@ export default {
   computed: {
     recSalePrice: {
       get() {
-        return this.$store.state.recSalePrice
+        return this.$store.getters.getSalePrice
       },
       set(value) {
         this.$store.commit('setSalePrice', value)
@@ -113,7 +113,7 @@ export default {
     },
     minTxAmount: {
       get() {
-        return this.$store.state.minTxAmount
+        return this.$store.getters.getMinTxAmount
       },
       set(value) {
         this.$store.commit('setMinTxAmount', value)
