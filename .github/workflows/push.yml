@@ -27,7 +27,7 @@ jobs:
       - name: Deploy script
         run: |
           set -e
-
+          npm i
           npm run build
 
           cd dist
