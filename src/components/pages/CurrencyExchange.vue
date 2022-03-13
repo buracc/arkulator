@@ -19,11 +19,11 @@
             <v-row>
               <v-col>
                 <v-text-field label="Gold amount" v-model="goldAmount" />
-                <v-text-field label="Royal crystal amount" v-model="royalAmount" />
+                <v-text-field label="Royal crystal amount" v-model="rcAmount" />
               </v-col>
-              <v-col
-                ><v-text-field label="Gold price" v-model="goldPrice" prefix="$" />
-                <v-text-field label="Royal crystal price" v-model="royalPrice" prefix="$" />
+              <v-col>
+                <v-text-field label="Gold price" v-model="goldPrice" prefix="$" />
+                <v-text-field label="Royal crystal price" v-model="rcPrice" prefix="$" />
               </v-col>
             </v-row>
             <span>The current sale prices for gold (gold sellers) and royal crystals (Steam store).</span>
@@ -46,7 +46,12 @@
                   <CurrencyItem
                     type="Gold"
                     :amount="moneyToGold(moneyConversion)"
-                    desc="When buying from gold sellers"
+                    desc="When buying from gold sellers (illegitimately, may get you banned)"
+                  />
+                  <CurrencyItem
+                    type="Gold"
+                    :amount="moneyToGoldSteam(moneyConversion)"
+                    desc="When buying Royal Crystals & converting to gold"
                   />
                   <CurrencyItem
                     type="Crystals"
@@ -86,8 +91,8 @@
             <v-row>
               <v-col>
                 <span>Price for 1 crystal:</span>
-                <li>${{ getCrystalToGoldSellerPrice().toLocaleString() }} if purchasing gold</li>
-                <li>${{ getCrystalToSteamPrice().toLocaleString() }} if purchasing Royal crystals and converting</li>
+                <li>${{ getCrystalToGoldSellerPrice().toLocaleString() }} if purchasing gold (bannable)</li>
+                <li>${{ getCrystalToSteamPrice().toLocaleString() }} if purchasing Royal Crystals and converting</li>
                 <li>{{ getCrystalToGoldPrice().toLocaleString() }} Gold</li>
               </v-col>
             </v-row>
@@ -100,12 +105,13 @@
 
 <script>
 import CurrencyItem from '@/components/list/CurrencyItem'
+
 export default {
   components: { CurrencyItem },
   computed: {
     recSalePrice: {
       get() {
-        return this.$store.getters.getSalePrice
+        return this.$store.state.recSalePrice
       },
       set(value) {
         this.$store.commit('setSalePrice', value)
@@ -113,23 +119,69 @@ export default {
     },
     minTxAmount: {
       get() {
-        return this.$store.getters.getMinTxAmount
+        return this.$store.state.minTxAmount
       },
       set(value) {
         this.$store.commit('setMinTxAmount', value)
       },
     },
+    goldAmount: {
+      get() {
+        return this.$store.state.goldAmount
+      },
+      set(value) {
+        this.$store.commit('setGoldAmount', value)
+      },
+    },
+    goldPrice: {
+      get() {
+        return this.$store.state.goldPrice
+      },
+      set(value) {
+        this.$store.commit('setGoldPrice', value)
+      },
+    },
+    rcAmount: {
+      get() {
+        return this.$store.state.rcAmount
+      },
+      set(value) {
+        this.$store.commit('setRcAmount', value)
+      },
+    },
+    rcPrice: {
+      get() {
+        return this.$store.state.rcPrice
+      },
+      set(value) {
+        this.$store.commit('setRcPrice', value)
+      },
+    },
+    moneyConversion: {
+      get() {
+        return this.$store.state.moneyConversion
+      },
+      set(value) {
+        this.$store.commit('setMoneyConversion', value)
+      },
+    },
+    goldConversion: {
+      get() {
+        return this.$store.state.goldConversion
+      },
+      set(value) {
+        this.$store.commit('setGoldConversion', value)
+      },
+    },
+    rcConversion: {
+      get() {
+        return this.$store.state.rcConversion
+      },
+      set(value) {
+        this.$store.commit('setRcConversion', value)
+      },
+    },
   },
-  data: () => ({
-    goldAmount: 1000,
-    goldPrice: 1.2,
-    royalAmount: 12000,
-    royalPrice: 100,
-
-    moneyConversion: 100,
-    goldConversion: 1000,
-    rcConversion: 12000,
-  }),
   methods: {
     goldPurchaseToCrystals(money) {
       return (money / this.getCrystalToGoldSellerPrice()).toLocaleString()
@@ -149,6 +201,9 @@ export default {
     moneyToGold(money) {
       return ((this.goldAmount / this.goldPrice) * money).toLocaleString()
     },
+    moneyToGoldSteam(money) {
+      return ((this.rcAmount / this.rcPrice) * money * this.getRoyalCrystalToGold()).toLocaleString()
+    },
 
     getRoyalCrystalToGold() {
       return this.recSalePrice / this.minTxAmount
@@ -163,7 +218,7 @@ export default {
       return (this.goldPrice / this.goldAmount) * this.getCrystalToGoldPrice()
     },
     getCrystalToSteamPrice() {
-      return ((this.royalPrice / this.royalAmount) * this.minTxAmount) / 95
+      return ((this.rcPrice / this.rcAmount) * this.minTxAmount) / 95
     },
   },
 }

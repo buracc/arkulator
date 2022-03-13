@@ -38,7 +38,7 @@ export default {
   computed: {
     recSalePrice: {
       get() {
-        return this.$store.getters.getSalePrice
+        return this.$store.state.recSalePrice
       },
     },
   },
