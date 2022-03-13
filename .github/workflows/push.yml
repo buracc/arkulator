@@ -32,6 +32,7 @@ jobs:
 
           cd dist
 
+          git config --global user.name "GitHub Actions"
           git init
           git add -A
           git commit -m 'deploy'
