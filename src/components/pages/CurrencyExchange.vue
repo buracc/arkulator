@@ -18,11 +18,20 @@
           <v-card-text>
             <v-row>
               <v-col>
-                <v-text-field label="Gold amount" v-model="goldAmount" />
+                <v-text-field
+                  label="Gold amount"
+                  v-model="goldAmount"
+                  hint="Purchasing gold illegitimately may get you banned."
+                />
                 <v-text-field label="Royal crystal amount" v-model="rcAmount" />
               </v-col>
               <v-col>
-                <v-text-field label="Gold price" v-model="goldPrice" prefix="$" />
+                <v-text-field
+                  label="Gold price"
+                  v-model="goldPrice"
+                  prefix="$"
+                  hint="Purchasing gold illegitimately may get you banned."
+                />
                 <v-text-field label="Royal crystal price" v-model="rcPrice" prefix="$" />
               </v-col>
             </v-row>

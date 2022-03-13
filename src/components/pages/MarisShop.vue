@@ -1,6 +1,12 @@
 <template>
-  <v-card>
-    <v-row style="padding: 1%">
+  <v-main style="padding: 1%">
+    <v-row dense>
+      <span>
+        Be sure to adjust the Gold -> Crystal conversion rate for your server on the 'Currencies' page accordingly. Can
+        be checked by going to the in-game store (F4), and then to Currency Exchange.
+      </span>
+    </v-row>
+    <v-row dense>
       <v-col md="4">
         <v-card>
           <v-card-title>Tier 1 materials</v-card-title>
@@ -172,7 +178,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-card>
+  </v-main>
 </template>
 
 <script>

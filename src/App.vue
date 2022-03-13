@@ -35,7 +35,7 @@ export default {
         component: MarisShop,
       },
       {
-        title: 'Currency Exchange',
+        title: 'Currencies',
         component: CurrencyExchange,
       },
     ],
