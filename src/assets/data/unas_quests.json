@@ -1,0 +1,56 @@
+{
+  "Remnants of the Plague": {
+    "location": {
+      "continent": "Rethramis",
+      "area": "Rethramis Border"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Silver": "18700",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Stern's Stigma": {
+    "location": {
+      "continent": "Arthetine",
+      "area": "Origins of Stern"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Ability stone (T1 ~ T3)": "1",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "The Greater Good": {
+    "location": {
+      "continent": "Arthetine",
+      "area": "Scraplands"
+    },
+    "ilvl": 250,
+    "req_quests": ["Stern's Stigma"],
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Silver": "18700",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Source of the Poison": {
+    "location": {
+      "continent": "Arthetine",
+      "area": "Riza Falls"
+    },
+    "ilvl": 250,
+    "req_quests": ["The Greater Good"],
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Ability stone (T1 ~ T3)": "1",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  }
+}
