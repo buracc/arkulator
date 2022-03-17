@@ -4,7 +4,6 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  strict: true,
   state: {
     recSalePrice: -1,
     minTxAmount: -1,
@@ -17,6 +16,8 @@ export const store = new Vuex.Store({
     moneyConversion: -1,
     goldConversion: -1,
     rcConversion: -1,
+
+    characters: {},
   },
   mutations: {
     init(state) {
@@ -31,6 +32,12 @@ export const store = new Vuex.Store({
       state.moneyConversion = ifStored('moneyConversion', 100)
       state.goldConversion = ifStored('goldConversion', 1000)
       state.rcConversion = ifStored('rcConversion', 12000)
+
+      state.characters = JSON.parse(ifStored('characters', '{}'))
+    },
+    setCharacters(state, value) {
+      state.characters = value
+      localStorage.setItem('characters', JSON.stringify(value))
     },
     setSalePrice(state, value) {
       state.recSalePrice = value

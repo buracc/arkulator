@@ -1,0 +1,248 @@
+{
+  "Plague Doctor": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Stat Increase Potion": 1,
+          "Emote: Pain": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Remnants of the Plague"
+      }
+    ]
+  },
+  "Poisonous Desert": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Crit Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Stern's Stigma",
+        "req_completions": 1
+      },
+      {
+        "name": "The Greater Good",
+        "req_completions": 2
+      },
+      {
+        "name": "Source of the Poison"
+      }
+    ]
+  },
+  "Bringing Peace to the Souls": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Phoenix Plume": 1
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Phoenix Plume": 2
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Phoenix Plume": 3,
+          "Courage Potion": 1,
+          "Crafting Recipe: Worship Bench": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Kadan Cathedral's Exorcism Ritual"
+      }
+    ]
+  },
+  "Running the Port": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Domination Potion": 1,
+          "Masterpiece #10": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Moronto's Agent"
+      }
+    ]
+  },
+  "Cook": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Vitality Increase Potion": 1,
+          "Naruni Card": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Taste Test",
+        "req_completions": 2
+      },
+      {
+        "name": "Meat, the Challenge"
+      }
+    ]
+  },
+  "Save the Forest": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Wisdom Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Fairy's Friend"
+      }
+    ]
+  },
+  "Only the Strong Survive": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 10000,
+          "Golden Goblin Coin": 10
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 13000,
+          "Golden Goblin Coin": 20
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 26000,
+          "Vitality Increase Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Only the Strong Survive",
+        "req_completions": 7
+      },
+      {
+        "name": "Prove Your Mettle"
+      }
+    ]
+  },
+  "Saltern Worker": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Vitality Increase Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Rubbing Away the Marks of Time"
+      }
+    ]
+  }
+}

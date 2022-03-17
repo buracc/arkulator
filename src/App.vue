@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import MarisShop from '@/components/pages/MarisShop'
-import CurrencyExchange from '@/components/pages/CurrencyExchange'
+import MarisShop from '@/pages/MarisShop'
+import CurrencyExchange from '@/pages/CurrencyExchange'
+import UnaTracker from '@/pages/UnaTracker'
 
 export default {
   name: 'App',
@@ -33,6 +34,10 @@ export default {
       {
         title: "Mari's shop",
         component: MarisShop,
+      },
+      {
+        title: 'Una dailies',
+        component: UnaTracker,
       },
       {
         title: 'Currencies',
