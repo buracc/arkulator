@@ -315,6 +315,10 @@ export default {
     },
     setQuestCompletedToday(quest) {
       if (quest.lastCompleted === null) {
+        if (quest.progress === 0) {
+          return
+        }
+
         quest.lastCompleted = new Date()
       } else {
         quest.lastCompleted = null
