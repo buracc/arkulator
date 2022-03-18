@@ -396,7 +396,7 @@
       "2": {
         "xp": 20,
         "rewards": {
-          "Silver":4000
+          "Silver": 4000
         }
       },
       "3": {
@@ -411,6 +411,62 @@
     "quests": [
       {
         "name": "Anxious Mind"
+      }
+    ]
+  },
+  "Frozen Memories": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Charisma Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Frozen Memories"
+      }
+    ]
+  },
+  "Wiping out the Horse Tieves": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Courage Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Die a Hundred Deaths"
       }
     ]
   }

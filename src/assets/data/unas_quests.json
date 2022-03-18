@@ -144,5 +144,44 @@
       "Honing shards (T1 ~ T3)": "600",
       "Small Combat XP Potion": "1 ~ 5"
     }
+  },
+  "Kadan Cathedral's Exorcism Ritual": {
+    "location": {
+      "continent": "West Luterra",
+      "area": "Medrick Monastery"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstone (T1 ~ T3)": "3 ~ 6",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Die a Hundred Deaths": {
+    "location": {
+      "continent": "North Vern",
+      "area": "Fesnar Highlands"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Honing shards (T1 ~ T3)": "690",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Frozen Memories": {
+    "location": {
+      "continent": "Shushire",
+      "area": "Icewing Heights"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Honing increase (T1 ~ T3)": "1",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }
