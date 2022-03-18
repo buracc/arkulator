@@ -38,7 +38,7 @@
                         Completed: {{ quest.progress }} {{ quest.maxProgress ? '/ ' + quest.maxProgress : '' }}
                         <v-list-item-subtitle>
                           Today:
-                          <v-icon x-small @click="setQuestCompletedToday(quest)">
+                          <v-icon x-small @click="setQuestCompletedToday(charName, quest)">
                             {{ !canDoQuestToday(quest) ? '✅' : '❌' }}
                           </v-icon>
                         </v-list-item-subtitle>
@@ -184,13 +184,13 @@ export default {
         dailies: {},
       }
 
-      this.refresh(this.addCharName, characters)
+      this.updateAndRefresh(this.addCharName, characters)
     },
     deleteCharacter(name) {
       const characters = this.characters
       delete characters[name]
 
-      this.refresh(name, characters)
+      this.updateAndRefresh(name, characters)
     },
     addDaily(charName, repName) {
       const reputation = this.reputations[repName]
@@ -210,13 +210,13 @@ export default {
         quests: quests,
       }
 
-      this.refresh(charName, chars)
+      this.updateAndRefresh(charName, chars)
     },
     deleteDaily(charName, repName) {
       const chars = this.characters
       delete chars[charName].dailies[repName]
 
-      this.refresh(charName, chars)
+      this.updateAndRefresh(charName, chars)
     },
     getDisplayedXp(repName, lvl, xp) {
       const maxXp = this.getMaxXp(repName, lvl)
@@ -263,7 +263,7 @@ export default {
         daily.rep_level++
       }
 
-      this.refresh(charName, chars)
+      this.updateAndRefresh(charName, chars)
     },
     uncompleteQuest(charName, dailyName, questName) {
       const chars = this.characters
@@ -283,7 +283,7 @@ export default {
         daily.rep_xp = this.getMaxXp(dailyName, daily.rep_level) - 10
       }
 
-      this.refresh(charName, chars)
+      this.updateAndRefresh(charName, chars)
     },
     canDoQuestToday(quest) {
       if (quest.maxProgress !== undefined && quest.progress === quest.maxProgress) {
@@ -313,7 +313,7 @@ export default {
 
       return this.characters[charName].dailies[repName] === undefined
     },
-    setQuestCompletedToday(quest) {
+    setQuestCompletedToday(charName, quest) {
       if (quest.lastCompleted === null) {
         if (quest.progress === 0) {
           return
@@ -323,13 +323,15 @@ export default {
       } else {
         quest.lastCompleted = null
       }
+
+      this.updateAndRefresh(charName, this.characters)
     },
     isIlvlMetForQuest(charName, quest) {
       const char = this.characters[charName]
       return char.ilvl >= this.quests[quest.name].ilvl
     },
-    refresh(name, characters) {
-      this.characters = characters
+    updateAndRefresh(name, characters) {
+      this.characters = characters // updates the store
       this.$forceUpdate()
     },
   },
