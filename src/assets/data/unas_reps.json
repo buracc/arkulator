@@ -384,5 +384,34 @@
         "name": "Android Emancipation"
       }
     ]
+  },
+  "Free-Ranging the Rabbits": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver":4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000,
+          "Wisdom Potion": 1,
+          "Lion Mask Card": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Anxious Mind"
+      }
+    ]
   }
 }

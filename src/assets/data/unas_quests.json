@@ -118,5 +118,31 @@
       "Ability stone (T1 ~ T3)": "1",
       "Small Combat XP Potion": "1 ~ 5"
     }
+  },
+  "Anxious Mind": {
+    "location": {
+      "continent": "Anikka",
+      "area": "Port City Changhun"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstone (T1 ~ T3)": "3 ~ 6",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Fairy's Friend": {
+    "location": {
+      "continent": "North Vern",
+      "area": "Vernese Forest"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Honing shards (T1 ~ T3)": "600",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }
