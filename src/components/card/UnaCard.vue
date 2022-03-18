@@ -131,6 +131,7 @@ export default {
         }
 
         this.characters[this.charName].rest_bonus = value
+        this.updateAndRefresh(this.charName, this.characters)
       },
     },
     quests: {
