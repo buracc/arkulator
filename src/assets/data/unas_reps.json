@@ -244,5 +244,145 @@
         "name": "Rubbing Away the Marks of Time"
       }
     ]
+  },
+  "Repairing the Seal Site": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 3000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 6000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 13000,
+          "Mana-infused Soup": 1
+        }
+      },
+      "4": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 26000
+        }
+      },
+      "5": {
+        "xp": 150,
+        "rewards": {
+          "Silver": 48000,
+          "Elzowin's Blessed Letter": 1
+        }
+      },
+      "6": {
+        "xp": 150,
+        "rewards": {
+          "Silver": 48000,
+          "Domination Potion": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Repairing the Seal Site",
+        "req_completions": 7
+      },
+      {
+        "name": "The Rebuilding of Xeneela"
+      }
+    ]
+  },
+  "Future Insect Expert": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Kindness Potion": 1,
+          "Crafting Recipe: Rethramis-Style Large Fountain": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "A Boy's Dream"
+      }
+    ]
+  },
+  "Killing the King": {
+    "levels": {
+      "1": {
+        "xp": 70,
+        "rewards": {
+          "Silver": 13000
+        }
+      },
+      "2": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Crafting Recipe: Reinforced Safe Box": 1
+        }
+      },
+      "3": {
+        "xp": 150,
+        "rewards": {
+          "Silver": 27000,
+          "Kindness Potion": 1,
+          "7th Giant's Heart": 1,
+          "Tookalibur Card": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Taking on Tooki"
+      }
+    ]
+  },
+  "Android Emancipation": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 27000,
+          "Mount: Blauer Vogel": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Android Emancipation"
+      }
+    ]
   }
 }

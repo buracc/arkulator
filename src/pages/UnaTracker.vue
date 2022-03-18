@@ -14,26 +14,40 @@
             <span v-if="char.dailies === undefined || Object.entries(char.dailies).length === 0">
               No dailies added, add a daily to start tracking.
             </span>
-            <v-list v-else>
-              <v-list-item v-for="(daily, dailyName) of char.dailies" :key="dailyName">
+            <v-list v-else flat>
+              <v-list-item v-for="(daily, reputationName) of char.dailies" :key="reputationName">
                 <v-list-item-content>
                   <v-list-item-title>
-                    {{ dailyName }} - Lvl: {{ daily.rep_level }} ({{
-                      getDisplayedXp(dailyName, daily.rep_level, daily.rep_xp)
-                    }}/{{ getMaxXp(dailyName, daily.rep_level) }}
-                    XP)
+                    <b>Reputation:</b> {{ reputationName }} - Lvl: {{ daily.rep_level }} ({{
+                      getDisplayedXp(reputationName, daily.rep_level, daily.rep_xp)
+                    }})
                   </v-list-item-title>
-                  <v-list-item-content>
+                  <v-list-item-content @click="console.log()">
                     <v-row v-for="(quest, i) of daily.quests" :key="i">
-                      <v-col> {{ quest.name }} </v-col>
                       <v-col>
-                        Completed: {{ quest.progress }} {{ quest.maxProgress ? '/ ' + quest.maxProgress : '' }}
+                        {{ quest.name }}
+                        <v-list-item-subtitle>
+                          {{ quests[quest.name].location['continent'] }}:
+                          {{ quests[quest.name].location['area'] }}
+                        </v-list-item-subtitle>
+                        <v-list-item-subtitle color="red" v-if="!isIlvlMetForQuest(charName, quest)">
+                          Required Item Level: {{ quests[quest.name].ilvl }}
+                        </v-list-item-subtitle>
                       </v-col>
                       <v-col>
-                        <v-btn text small outlined @click="uncompleteQuest(charName, dailyName, quest.name)">
+                        Completed: {{ quest.progress }} {{ quest.maxProgress ? '/ ' + quest.maxProgress : '' }}
+                        <v-list-item-subtitle>
+                          Today:
+                          <v-icon x-small @click="setQuestCompletedToday(quest)">
+                            {{ !canDoQuestToday(quest) ? '✅' : '❌' }}
+                          </v-icon>
+                        </v-list-item-subtitle>
+                      </v-col>
+                      <v-col>
+                        <v-btn text small outlined @click="uncompleteQuest(charName, reputationName, quest.name)">
                           <v-icon>mdi-minus</v-icon>
                         </v-btn>
-                        <v-btn text small outlined @click="completeQuest(charName, dailyName, quest.name)">
+                        <v-btn text small outlined @click="completeQuest(charName, reputationName, quest.name)">
                           <v-icon>mdi-plus</v-icon>
                         </v-btn>
                       </v-col>
@@ -41,17 +55,47 @@
                   </v-list-item-content>
                 </v-list-item-content>
                 <v-list-item-action>
-                  <v-btn text outlined @click="deleteDaily(charName, dailyName)">
+                  <v-btn text outlined @click="deleteDaily(charName, reputationName)">
                     <v-icon small>mdi-delete</v-icon>
                   </v-btn>
                 </v-list-item-action>
               </v-list-item>
             </v-list>
 
-            <v-divider />
+            <v-btn
+              absolute
+              bottom
+              right
+              small
+              fab
+              color="primary"
+              v-if="selectedReputation && canAddReputation(charName, selectedReputation)"
+              @click="addDaily(charName, selectedReputation)"
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-            <span>Select a daily below to start tracking.</span>
-            <v-select :items="Object.keys(reputations)" label="Reputation chain" v-model="selectedReputation" />
+      <v-col md="3">
+        <v-card>
+          <v-card-title> Add new character</v-card-title>
+          <v-card-text>
+            <v-text-field label="Character name" v-model="addCharName" />
+            <v-text-field label="Item level" v-model="addItemLevel" />
+            <v-btn @click="addCharacter">Add character</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <v-row dense style="padding-bottom: 2%; padding-left: 1%; padding-right: 1%">
+      <v-col md="4">
+        <v-card>
+          <v-card-title> Track a daily </v-card-title>
+          <v-card-text>
+            <v-select :items="Object.keys(reputations)" label="Reputation questline" v-model="selectedReputation" />
 
             <v-row dense v-if="selectedReputation">
               <v-col>
@@ -74,7 +118,7 @@
                   <v-list-item>
                     <v-col md="5">
                       <v-list-item-title class="text-wrap"> {{ quest.name }} </v-list-item-title>
-                      <v-list-item-subtitle>
+                      <v-list-item-subtitle v-if="quests[quest.name]">
                         {{ quests[quest.name].location['continent'] }}:
                         {{ quests[quest.name].location['area'] }}
                       </v-list-item-subtitle>
@@ -82,7 +126,7 @@
 
                     <v-col>
                       <v-list dense>
-                        <v-list-item>
+                        <v-list-item v-if="quests[quest.name]">
                           <v-list-item-content>
                             <v-list-item-title> Quest rewards:</v-list-item-title>
                             <span v-for="(amount, item) of quests[quest.name].rewards" :key="item">
@@ -90,36 +134,13 @@
                             </span>
                           </v-list-item-content>
                         </v-list-item>
+                        <span v-else> Quest has not been mapped yet </span>
                       </v-list>
                     </v-col>
                   </v-list-item>
                 </v-row>
               </v-list>
             </v-row>
-
-            <v-btn
-              absolute
-              bottom
-              right
-              small
-              fab
-              color="primary"
-              v-if="selectedQuest && selectedReputation"
-              @click="addDaily(charName, selectedReputation)"
-            >
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col md="3">
-        <v-card>
-          <v-card-title> Add new character</v-card-title>
-          <v-card-text>
-            <v-text-field label="Character name" v-model="addCharName" />
-            <v-text-field label="Item level" v-model="addItemLevel" />
-            <v-btn @click="addCharacter">Add character</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -131,11 +152,9 @@
 export default {
   inject: ['unas'],
   data: () => ({
-    editDialog: {},
     addCharName: '',
     addItemLevel: '',
     selectedReputation: null,
-    selectedQuest: null,
   }),
   computed: {
     quests: {
@@ -167,16 +186,6 @@ export default {
 
       this.refresh(this.addCharName, characters)
     },
-    saveCharacter(name) {
-      const characters = this.characters
-      const char = characters[name]
-
-      this.editDialog[name] = false
-      console.log(char)
-    },
-    editCharacter(name) {
-      this.editDialog[name] = true
-    },
     deleteCharacter(name) {
       const characters = this.characters
       delete characters[name]
@@ -190,6 +199,7 @@ export default {
           name: q.name,
           progress: 0,
           maxProgress: q.req_completions,
+          lastCompleted: null,
         }
       })
 
@@ -210,7 +220,7 @@ export default {
     },
     getDisplayedXp(repName, lvl, xp) {
       const maxXp = this.getMaxXp(repName, lvl)
-      return xp <= maxXp ? xp : maxXp
+      return (xp <= maxXp ? xp : maxXp) + '/' + maxXp + ' XP'
     },
     getMaxXp(repName, lvl) {
       const rep = this.reputations[repName]
@@ -244,6 +254,7 @@ export default {
       }
 
       quest.progress++
+      quest.lastCompleted = new Date()
       const maxXp = this.getMaxXp(dailyName, daily.rep_level)
       daily.rep_xp += Number.parseInt(this.quests[questName].rewards['Reputation'])
 
@@ -265,6 +276,7 @@ export default {
       }
 
       quest.progress--
+      quest.lastCompleted = null
       daily.rep_xp -= Number.parseInt(this.quests[questName].rewards['Reputation'])
       if (daily.rep_xp < 0) {
         daily.rep_level--
@@ -273,9 +285,43 @@ export default {
 
       this.refresh(charName, chars)
     },
+    canDoQuestToday(quest) {
+      if (quest.lastCompleted === null) {
+        return true
+      }
+
+      const completionTime = new Date(quest.lastCompleted)
+      const resetTime = new Date()
+      resetTime.setHours(10, 0, 0, 0)
+      return completionTime < resetTime && new Date() > resetTime
+    },
+    canAddReputation(charName, repName) {
+      const quests = this.reputations[repName].quests
+      if (quests === undefined) {
+        return false
+      }
+
+      for (let quest of quests) {
+        if (this.quests[quest.name] === undefined) {
+          return false
+        }
+      }
+
+      return this.characters[charName].dailies[repName] === undefined
+    },
+    setQuestCompletedToday(quest) {
+      if (quest.lastCompleted === null) {
+        quest.lastCompleted = new Date()
+      } else {
+        quest.lastCompleted = null
+      }
+    },
+    isIlvlMetForQuest(charName, quest) {
+      const char = this.characters[charName]
+      return char.ilvl >= this.quests[quest.name].ilvl
+    },
     refresh(name, characters) {
       this.characters = characters
-      this.editDialog[name] = false
       this.$forceUpdate()
     },
   },

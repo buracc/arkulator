@@ -52,5 +52,71 @@
       "Ability stone (T1 ~ T3)": "1",
       "Small Combat XP Potion": "1 ~ 5"
     }
+  },
+  "Repairing the Seal Site": {
+    "location": {
+      "continent": "Rohendel",
+      "area": "Lake Shiverwave"
+    },
+    "ilvl": 415,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Honing shards": "630",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "The Rebuilding of Xeneela": {
+    "location": {
+      "continent": "Rohendel",
+      "area": "Xeneela Ruins"
+    },
+    "ilvl": 415,
+    "req_quests": ["Repairing the Seal Site"],
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Honing shards": "630",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "A Boy's Dream": {
+    "location": {
+      "continent": "Islands",
+      "area": "Lullaby Island"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Silver": "10300",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Taking on Tooki": {
+    "location": {
+      "continent": "Islands",
+      "area": "Tooki Island"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Silver": "11845",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Android Emancipation": {
+    "location": {
+      "continent": "Islands",
+      "area": "Facility X-301"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Ability stone (T1 ~ T3)": "1",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }
