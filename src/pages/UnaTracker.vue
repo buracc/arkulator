@@ -22,7 +22,7 @@
                       getDisplayedXp(reputationName, daily.rep_level, daily.rep_xp)
                     }})
                   </v-list-item-title>
-                  <v-list-item-content @click="console.log()">
+                  <v-list-item-content>
                     <v-row v-for="(quest, i) of daily.quests" :key="i">
                       <v-col>
                         {{ quest.name }}
@@ -286,6 +286,10 @@ export default {
       this.refresh(charName, chars)
     },
     canDoQuestToday(quest) {
+      if (quest.maxProgress !== undefined && quest.progress === quest.maxProgress) {
+        return false
+      }
+
       if (quest.lastCompleted === null) {
         return true
       }
