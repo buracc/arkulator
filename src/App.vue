@@ -23,7 +23,8 @@
 <script>
 import MarisShop from '@/pages/MarisShop'
 import CurrencyExchange from '@/pages/CurrencyExchange'
-import UnaTracker from '@/pages/UnaTracker'
+import UnaDailies from '@/pages/UnaDailies'
+import CharacterSettings from '@/pages/CharacterSettings'
 
 export default {
   name: 'App',
@@ -37,11 +38,15 @@ export default {
       },
       {
         title: 'Una dailies',
-        component: UnaTracker,
+        component: UnaDailies,
       },
       {
         title: 'Currencies',
         component: CurrencyExchange,
+      },
+      {
+        title: 'Characters',
+        component: CharacterSettings,
       },
     ],
   }),
