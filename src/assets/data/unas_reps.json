@@ -442,7 +442,7 @@
       }
     ]
   },
-  "Wiping out the Horse Tieves": {
+  "Wiping out the Horse Thieves": {
     "levels": {
       "1": {
         "xp": 10,
@@ -467,6 +467,46 @@
     "quests": [
       {
         "name": "Die a Hundred Deaths"
+      }
+    ]
+  },
+  "Umar Cosmetics' New History": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 15000,
+          "Truth Mushroom": 1
+        }
+      },
+      "2": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 40000,
+          "Truth Mushroom": 2
+        }
+      },
+      "3": {
+        "xp": 150,
+        "rewards": {
+          "Silver": 76000,
+          "Truth Mushroom": 3,
+          "Umar Cosmetics' Invitation": 1,
+          "Nazan Card": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Quality Check",
+        "req_completions": 3
+      },
+      {
+        "name": "Research and Development",
+        "req_completions": 7
+      },
+      {
+        "name": "Market Research"
       }
     ]
   }

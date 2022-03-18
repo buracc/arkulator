@@ -182,6 +182,48 @@
       "Reputation": "10",
       "Honing increase (T1 ~ T3)": "1",
       "Small Combat XP Potion": "1 ~ 5"
+    },
+    "Quality Check": {
+      "location": {
+        "continent": "Yorn",
+        "area": "Great Castle"
+      },
+      "ilvl": 802,
+      "rewards": {
+        "Roster XP": "240",
+        "Reputation": "10",
+        "Ability stone (T2 ~ T3)": "1",
+        "Small Combat XP Potion": "1 ~ 5",
+        "Food Chest for Trade": "1"
+      }
+    },
+    "Research and Development": {
+      "location": {
+        "continent": "Yorn",
+        "area": "Black Anvil Mine"
+      },
+      "ilvl": 802,
+      "rewards": {
+        "Roster XP": "240",
+        "Reputation": "10",
+        "Providence Stone": "800",
+        "Small Combat XP Potion": "1 ~ 5",
+        "Food Chest for Trade": "1"
+      }
+    },
+    "Market Research": {
+      "location": {
+        "continent": "Yorn",
+        "area": "Great Castle"
+      },
+      "ilvl": 802,
+      "rewards": {
+        "Roster XP": "240",
+        "Reputation": "10",
+        "Honing shards (T2 ~ T3)": "800",
+        "Small Combat XP Potion": "1 ~ 5",
+        "Food Chest for Trade": "1"
+      }
     }
   }
 }
