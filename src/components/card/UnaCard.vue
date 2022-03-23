@@ -3,24 +3,7 @@
     <v-card-title> {{ charName }} ({{ char.ilvl }})</v-card-title>
 
     <v-card-text>
-      <v-row dense>
-        <v-col md="1">
-          <v-btn text @click="restBonus -= 10">
-            <v-icon>mdi-minus</v-icon>
-          </v-btn>
-        </v-col>
-        <v-col md="10">
-          <v-progress-linear :value="restBonus" height="25" color="green">
-            <strong>Rest bonus: {{ restBonus }}/100 </strong>
-          </v-progress-linear>
-        </v-col>
-
-        <v-col md="1" @click="restBonus += 10">
-          <v-btn text>
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+      <RestBonusBar :rest-bonus="restBonus" title="Una's dailies" @change="restBonus += $event" />
       <span v-if="char.dailies === undefined || Object.entries(char.dailies).length === 0">
         No dailies added, add a daily to start tracking.
       </span>
@@ -80,7 +63,9 @@
 </template>
 
 <script>
+import RestBonusBar from '@/components/progress/RestBonusBar'
 export default {
+  components: { RestBonusBar },
   inject: ['unas'],
   props: ['charName'],
   mounted() {
@@ -100,7 +85,9 @@ export default {
       if (now >= resetDate && lastRestBonusCalculation < resetDate) {
         this.restBonus += (3 - this.getQuestsCompletedToday()) * 10
         const idleDays = Math.floor((now - lastRestBonusCalculation) / (1000 * 60 * 60 * 24)) - 1
-        this.restBonus += idleDays * 30
+        if (idleDays > 0) {
+          this.restBonus += idleDays * 30
+        }
         char.rest_bonus_set_date = now
         this.updateAndRefresh(this.charName, this.characters)
       }
@@ -109,9 +96,8 @@ export default {
   computed: {
     resetDate: {
       get() {
-        const resetDate = new Date()
-        resetDate.setHours(10, 0, 0, 0)
-        return resetDate
+        const now = new Date()
+        return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 10))
       },
     },
     char: {
