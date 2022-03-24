@@ -1,14 +1,14 @@
 <template>
   <v-card>
-    <v-card-title> {{ charName }} ({{ char.ilvl }})</v-card-title>
+    <v-card-title> Una's dailies </v-card-title>
 
     <v-card-text>
-      <RestBonusBar :rest-bonus="restBonus" title="Una's dailies" @change="restBonus += $event" />
-      <span v-if="char.dailies === undefined || Object.entries(char.dailies).length === 0">
+      <UnasRestBonusBar :char-name="charName" :completions="this.getQuestsCompletedToday()" />
+      <span v-if="Object.entries(char.unas_dailies.reputations).length === 0">
         No dailies added, add a daily to start tracking.
       </span>
       <v-list v-else flat>
-        <v-list-item v-for="(daily, reputationName) of char.dailies" :key="reputationName">
+        <v-list-item v-for="(daily, reputationName) of char.unas_dailies.reputations" :key="reputationName">
           <v-list-item-content>
             <v-list-item-title>
               <b>Reputation:</b> {{ reputationName }} - Lvl: {{ daily.rep_level }} ({{
@@ -28,7 +28,7 @@
                   </v-list-item-subtitle>
                 </v-col>
                 <v-col>
-                  Completed: {{ quest.progress }} {{ quest.maxProgress ? '/ ' + quest.maxProgress : '' }}
+                  Completed: {{ quest.progress }} {{ quest.max_progress ? '/ ' + quest.max_progress : '' }}
                   <v-list-item-subtitle>
                     Today:
                     <v-icon x-small @click="setQuestCompletedToday(charName, quest)">
@@ -63,36 +63,12 @@
 </template>
 
 <script>
-import RestBonusBar from '@/components/progress/RestBonusBar'
+import UnasRestBonusBar from '@/components/progress/UnasRestBonusBar'
+
 export default {
-  components: { RestBonusBar },
+  components: { UnasRestBonusBar },
   inject: ['unas'],
   props: ['charName'],
-  mounted() {
-    if (this.restBonus === undefined) {
-      this.restBonus = 0
-    }
-
-    const char = this.characters[this.charName]
-    const restBonusSetDate = char.rest_bonus_set_date
-    const resetDate = this.resetDate
-    const now = new Date()
-    if (restBonusSetDate === undefined) {
-      char.rest_bonus_set_date = now
-      this.updateAndRefresh(this.charName, this.characters)
-    } else {
-      const lastRestBonusCalculation = new Date(restBonusSetDate)
-      if (now >= resetDate && lastRestBonusCalculation < resetDate) {
-        this.restBonus += (3 - this.getQuestsCompletedToday()) * 10
-        const idleDays = Math.floor((now - lastRestBonusCalculation) / (1000 * 60 * 60 * 24)) - 1
-        if (idleDays > 0) {
-          this.restBonus += idleDays * 30
-        }
-        char.rest_bonus_set_date = now
-        this.updateAndRefresh(this.charName, this.characters)
-      }
-    }
-  },
   computed: {
     resetDate: {
       get() {
@@ -105,19 +81,12 @@ export default {
         return this.characters[this.charName]
       },
     },
-    restBonus: {
+    unasRestBonus: {
       get() {
-        return this.char.rest_bonus
+        return this.char.unas_dailies.rest_bonus.value
       },
       set(value) {
-        if (value < 0) {
-          value = 0
-        } else if (value > 100) {
-          value = 100
-        }
-
-        this.characters[this.charName].rest_bonus = value
-        this.updateAndRefresh(this.charName, this.characters)
+        this.char.unas_dailies.rest_bonus.value = value
       },
     },
     quests: {
@@ -142,9 +111,9 @@ export default {
   methods: {
     deleteDaily(charName, repName) {
       const chars = this.characters
-      delete chars[charName].dailies[repName]
+      delete chars[charName].unas_dailies.reputations[repName]
 
-      this.updateAndRefresh(charName, chars)
+      this.updateAndRefresh(chars)
     },
     getDisplayedXp(repName, lvl, xp) {
       const maxXp = this.getMaxXp(repName, lvl)
@@ -160,93 +129,93 @@ export default {
       return Math.max(...Object.keys(rep.levels))
     },
     completeQuest(charName, dailyName, questName) {
-      const dailies = this.char.dailies
-      const daily = dailies[dailyName]
-      const quest = daily.quests.filter((q) => q.name === questName)[0]
+      const reps = this.char.unas_dailies.reputations
+      const reputation = reps[dailyName]
+      const quest = reputation.quests.filter((q) => q.name === questName)[0]
       const questData = this.quests[questName]
       const prereqs = questData['req_quests']
 
       if (prereqs !== undefined) {
         for (let questName of prereqs) {
-          const quest = daily.quests.filter((q) => q.name === questName)[0]
-          if (quest !== null && quest.progress !== quest.maxProgress) {
+          const quest = reputation.quests.filter((q) => q.name === questName)[0]
+          if (quest !== null && quest.progress !== quest.max_progress) {
             return
           }
         }
       }
 
-      if (quest.progress === quest.maxProgress) {
+      if (quest.progress === quest.max_progress) {
         return
       }
 
       quest.progress++
-      quest.lastCompleted = new Date()
+      quest.last_completed = new Date()
 
-      if (this.restBonus - 20 >= 0) {
-        this.restBonus -= 20
+      if (this.unasRestBonus - 20 >= 0) {
+        this.unasRestBonus -= 20
       }
 
-      const maxXp = this.getMaxXp(dailyName, daily.rep_level)
-      daily.rep_xp += Number.parseInt(this.quests[questName].rewards['Reputation'])
+      const maxXp = this.getMaxXp(dailyName, reputation.rep_level)
+      reputation.rep_xp += Number.parseInt(this.quests[questName].rewards['Reputation'])
 
-      if (daily.rep_xp >= maxXp && daily.rep_level < this.getMaxRepLvl(dailyName)) {
-        daily.rep_xp = 0
-        daily.rep_level++
+      if (reputation.rep_xp >= maxXp && reputation.rep_level < this.getMaxRepLvl(dailyName)) {
+        reputation.rep_xp = 0
+        reputation.rep_level++
       }
 
-      this.updateAndRefresh(charName, this.characters)
+      this.updateAndRefresh(this.characters)
     },
     uncompleteQuest(charName, dailyName, questName) {
-      const dailies = this.char.dailies
-      const daily = dailies[dailyName]
-      const quest = daily.quests.filter((q) => q.name === questName)[0]
+      const reps = this.char.unas_dailies.reputations
+      const reputation = reps[dailyName]
+      const quest = reputation.quests.filter((q) => q.name === questName)[0]
       if (quest.progress === 0) {
         return
       }
 
       quest.progress--
-      quest.lastCompleted = null
-      daily.rep_xp -= Number.parseInt(this.quests[questName].rewards['Reputation'])
-      if (daily.rep_xp < 0) {
-        daily.rep_level--
-        daily.rep_xp = this.getMaxXp(dailyName, daily.rep_level) - 10
+      quest.last_completed = null
+      reputation.rep_xp -= Number.parseInt(this.quests[questName].rewards['Reputation'])
+      if (reputation.rep_xp < 0) {
+        reputation.rep_level--
+        reputation.rep_xp = this.getMaxXp(dailyName, reputation.rep_level) - 10
       }
 
-      this.updateAndRefresh(charName, this.characters)
+      this.updateAndRefresh(this.characters)
     },
     isQuestMaxed(quest) {
-      return quest.maxProgress !== undefined && quest.progress === quest.maxProgress
+      return quest.max_progress !== undefined && quest.progress === quest.max_progress
     },
     canDoQuestToday(quest) {
-      if (quest.lastCompleted === null) {
+      if (quest.last_completed === null) {
         return true
       }
 
-      const completionTime = new Date(quest.lastCompleted)
+      const completionTime = new Date(quest.last_completed)
       const resetTime = this.resetDate
       return completionTime < resetTime && new Date() > resetTime
     },
     setQuestCompletedToday(charName, quest) {
-      if (quest.lastCompleted === null) {
+      if (quest.last_completed === null) {
         if (quest.progress === 0) {
           return
         }
 
-        quest.lastCompleted = new Date()
+        quest.last_completed = new Date()
       } else {
-        quest.lastCompleted = null
+        quest.last_completed = null
       }
 
-      this.updateAndRefresh(charName, this.characters)
+      this.updateAndRefresh(this.characters)
     },
     isIlvlMetForQuest(charName, quest) {
       return this.char.ilvl >= this.quests[quest.name].ilvl
     },
     getQuestsCompletedToday() {
       let total = 0
-      const dailies = this.char.dailies
-      for (let repName in dailies) {
-        const quests = dailies[repName].quests
+      const reputations = this.char.unas_dailies.reputations
+      for (let repName in reputations) {
+        const quests = reputations[repName].quests
         for (let quest of quests) {
           if (!this.canDoQuestToday(quest)) {
             total++
@@ -256,7 +225,7 @@ export default {
 
       return total
     },
-    updateAndRefresh(name, characters) {
+    updateAndRefresh(characters) {
       this.characters = characters // updates the store
       this.$forceUpdate()
     },

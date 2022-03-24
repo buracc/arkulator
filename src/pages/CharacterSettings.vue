@@ -64,7 +64,12 @@ export default {
       const characters = this.characters
       characters[this.addCharName] = {
         ilvl: this.addItemLevel,
-        dailies: {},
+        unas_dailies: {
+          rest_bonus: {
+            value: 0,
+          },
+          reputations: {},
+        },
       }
 
       this.updateAndRefresh(this.addCharName, characters)

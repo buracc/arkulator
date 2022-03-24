@@ -23,7 +23,7 @@
 <script>
 import MarisShop from '@/pages/MarisShop'
 import CurrencyExchange from '@/pages/CurrencyExchange'
-import UnaDailies from '@/pages/UnaDailies'
+import DailiesTracker from '@/pages/DailiesTracker'
 import CharacterSettings from '@/pages/CharacterSettings'
 
 export default {
@@ -37,8 +37,8 @@ export default {
         component: MarisShop,
       },
       {
-        title: 'Una dailies',
-        component: UnaDailies,
+        title: 'Dailies tracker',
+        component: DailiesTracker,
       },
       {
         title: 'Currencies',

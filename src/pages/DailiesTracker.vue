@@ -2,20 +2,25 @@
   <v-main>
     <v-row dense style="padding-bottom: 2%; padding-left: 1%; padding-right: 1%">
       <v-col md="6" v-for="(char, charName) of characters" :key="charName">
-        <UnaCard :charName="charName">
-          <v-btn
-            small
-            absolute
-            bottom
-            right
-            fab
-            color="primary"
-            v-if="selectedReputation && canAddReputation(charName, selectedReputation)"
-            @click="addDaily(charName, selectedReputation)"
-          >
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-        </UnaCard>
+        <v-card>
+          <v-card-title> {{ charName }} ({{ char.ilvl }}) </v-card-title>
+          <v-card-text>
+            <UnaCardSection :charName="charName">
+              <v-btn
+                small
+                absolute
+                bottom
+                right
+                fab
+                color="primary"
+                v-if="selectedReputation && canAddReputation(charName, selectedReputation)"
+                @click="addReputation(charName, selectedReputation)"
+              >
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </UnaCardSection>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -76,7 +81,10 @@
 </template>
 
 <script>
+import UnaCardSection from '@/components/card/UnaCardSection'
+
 export default {
+  components: { UnaCardSection },
   inject: ['unas'],
   data: () => ({
     selectedReputation: null,
@@ -102,19 +110,19 @@ export default {
     },
   },
   methods: {
-    addDaily(charName, repName) {
+    addReputation(charName, repName) {
       const reputation = this.reputations[repName]
       const quests = reputation.quests.map((q) => {
         return {
           name: q.name,
           progress: 0,
-          maxProgress: q.req_completions,
-          lastCompleted: null,
+          max_progress: q.req_completions,
+          last_completed: null,
         }
       })
 
       const chars = this.characters
-      chars[charName].dailies[repName] = {
+      chars[charName].unas_dailies.reputations[repName] = {
         rep_level: '1',
         rep_xp: 0,
         quests: quests,
@@ -134,7 +142,7 @@ export default {
         }
       }
 
-      return this.characters[charName].dailies[repName] === undefined
+      return this.characters[charName].unas_dailies.reputations[repName] === undefined
     },
     updateAndRefresh(name, characters) {
       this.characters = characters // updates the store
