@@ -64,11 +64,14 @@ export default {
       const characters = this.characters
       characters[this.addCharName] = {
         ilvl: this.addItemLevel,
-        unas_dailies: {
-          rest_bonus: {
-            value: 0,
+        dailies: {
+          unas: {
+            rest_bonus: {
+              value: 0,
+            },
+            reputations: {},
           },
-          reputations: {},
+          common: {},
         },
       }
 

@@ -1,61 +1,72 @@
 <template>
   <v-card>
-    <v-card-title> Una's dailies </v-card-title>
+    <v-card-title> Una's dailies</v-card-title>
 
     <v-card-text>
       <UnasRestBonusBar :char-name="charName" :completions="this.getQuestsCompletedToday()" />
-      <span v-if="Object.entries(char.unas_dailies.reputations).length === 0">
-        No dailies added, add a daily to start tracking.
-      </span>
-      <v-list v-else flat>
-        <v-list-item v-for="(daily, reputationName) of char.unas_dailies.reputations" :key="reputationName">
-          <v-list-item-content>
-            <v-list-item-title>
-              <b>Reputation:</b> {{ reputationName }} - Lvl: {{ daily.rep_level }} ({{
-                getDisplayedXp(reputationName, daily.rep_level, daily.rep_xp)
-              }})
-            </v-list-item-title>
-            <v-list-item-content>
-              <v-row v-for="(quest, i) of daily.quests" :key="i">
-                <v-col>
-                  {{ quest.name }}
-                  <v-list-item-subtitle>
-                    {{ quests[quest.name].location['continent'] }}:
-                    {{ quests[quest.name].location['area'] }}
-                  </v-list-item-subtitle>
-                  <v-list-item-subtitle color="red" v-if="!isIlvlMetForQuest(charName, quest)">
-                    Required Item Level: {{ quests[quest.name].ilvl }}
-                  </v-list-item-subtitle>
-                </v-col>
-                <v-col>
-                  Completed: {{ quest.progress }} {{ quest.max_progress ? '/ ' + quest.max_progress : '' }}
-                  <v-list-item-subtitle>
-                    Today:
-                    <v-icon x-small @click="setQuestCompletedToday(charName, quest)">
-                      {{ isQuestMaxed(quest) || !canDoQuestToday(quest) ? '✅' : '❌' }}
-                    </v-icon>
-                  </v-list-item-subtitle>
-                </v-col>
-                <v-col>
-                  <v-btn text small outlined @click="uncompleteQuest(charName, reputationName, quest.name)">
-                    <v-icon>mdi-minus</v-icon>
-                  </v-btn>
-                  <v-btn text small outlined @click="completeQuest(charName, reputationName, quest.name)">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-list-item-content>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn text outlined @click="deleteDaily(charName, reputationName)">
-              <v-icon small>mdi-delete</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list>
+      <v-row>
+        <v-col>
+          <v-divider />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <span v-if="Object.entries(char.dailies.unas.reputations).length === 0">
+            No dailies added, add a daily to start tracking.
+          </span>
+          <v-list v-else flat>
+            <v-list-item v-for="(daily, reputationName) of char.dailies.unas.reputations" :key="reputationName">
+              <v-list-item-content>
+                <v-list-item-title>
+                  <b>Reputation:</b> {{ reputationName }} - Lvl: {{ daily.rep_level }} ({{
+                    getDisplayedXp(reputationName, daily.rep_level, daily.rep_xp)
+                  }})
+                </v-list-item-title>
+                <v-list-item-content>
+                  <v-row v-for="(quest, i) of daily.quests" :key="i">
+                    <v-col>
+                      {{ quest.name }}
+                      <v-list-item-subtitle>
+                        {{ quests[quest.name].location['continent'] }}:
+                        {{ quests[quest.name].location['area'] }}
+                      </v-list-item-subtitle>
+                      <v-list-item-subtitle color="red" v-if="!isIlvlMetForQuest(charName, quest)">
+                        Required Item Level: {{ quests[quest.name].ilvl }}
+                      </v-list-item-subtitle>
+                    </v-col>
+                    <v-col>
+                      Completed: {{ quest.progress }} {{ quest.max_progress ? '/ ' + quest.max_progress : '' }}
+                      <v-list-item-subtitle>
+                        Today:
+                        <v-icon x-small @click="setQuestCompletedToday(charName, quest)">
+                          {{ isQuestMaxed(quest) || !canDoQuestToday(quest) ? '✅' : '❌' }}
+                        </v-icon>
+                      </v-list-item-subtitle>
+                    </v-col>
+                    <v-col>
+                      <v-btn text small outlined @click="uncompleteQuest(charName, reputationName, quest.name)">
+                        <v-icon>mdi-minus</v-icon>
+                      </v-btn>
+                      <v-btn text small outlined @click="completeQuest(charName, reputationName, quest.name)">
+                        <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-list-item-content>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn text outlined @click="deleteDaily(charName, reputationName)">
+                  <v-icon small>mdi-delete</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
 
-      <v-card-subtitle>Quests completed today: {{ getQuestsCompletedToday() }}/3</v-card-subtitle>
+          <v-card-subtitle v-if="Object.entries(char.dailies.unas.reputations).length > 0">
+            Quests completed today: {{ getQuestsCompletedToday() }}/3
+          </v-card-subtitle>
+        </v-col>
+      </v-row>
 
       <slot />
     </v-card-text>
@@ -83,10 +94,10 @@ export default {
     },
     unasRestBonus: {
       get() {
-        return this.char.unas_dailies.rest_bonus.value
+        return this.char.dailies.unas.rest_bonus.value
       },
       set(value) {
-        this.char.unas_dailies.rest_bonus.value = value
+        this.char.dailies.unas.rest_bonus.value = value
       },
     },
     quests: {
@@ -107,11 +118,16 @@ export default {
         this.$store.commit('setCharacters', value)
       },
     },
+    now: {
+      get() {
+        return new Date().getTime()
+      },
+    },
   },
   methods: {
     deleteDaily(charName, repName) {
       const chars = this.characters
-      delete chars[charName].unas_dailies.reputations[repName]
+      delete chars[charName].dailies.unas.reputations[repName]
 
       this.updateAndRefresh(chars)
     },
@@ -129,7 +145,7 @@ export default {
       return Math.max(...Object.keys(rep.levels))
     },
     completeQuest(charName, dailyName, questName) {
-      const reps = this.char.unas_dailies.reputations
+      const reps = this.char.dailies.unas.reputations
       const reputation = reps[dailyName]
       const quest = reputation.quests.filter((q) => q.name === questName)[0]
       const questData = this.quests[questName]
@@ -149,7 +165,7 @@ export default {
       }
 
       quest.progress++
-      quest.last_completed = new Date()
+      quest.last_completed = this.now
 
       if (this.unasRestBonus - 20 >= 0) {
         this.unasRestBonus -= 20
@@ -166,7 +182,7 @@ export default {
       this.updateAndRefresh(this.characters)
     },
     uncompleteQuest(charName, dailyName, questName) {
-      const reps = this.char.unas_dailies.reputations
+      const reps = this.char.dailies.unas.reputations
       const reputation = reps[dailyName]
       const quest = reputation.quests.filter((q) => q.name === questName)[0]
       if (quest.progress === 0) {
@@ -191,9 +207,9 @@ export default {
         return true
       }
 
-      const completionTime = new Date(quest.last_completed)
+      const completionTime = quest.last_completed
       const resetTime = this.resetDate
-      return completionTime < resetTime && new Date() > resetTime
+      return completionTime < resetTime && this.now > resetTime
     },
     setQuestCompletedToday(charName, quest) {
       if (quest.last_completed === null) {
@@ -201,7 +217,7 @@ export default {
           return
         }
 
-        quest.last_completed = new Date()
+        quest.last_completed = this.now
       } else {
         quest.last_completed = null
       }
@@ -213,7 +229,7 @@ export default {
     },
     getQuestsCompletedToday() {
       let total = 0
-      const reputations = this.char.unas_dailies.reputations
+      const reputations = this.char.dailies.unas.reputations
       for (let repName in reputations) {
         const quests = reputations[repName].quests
         for (let quest of quests) {

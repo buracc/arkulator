@@ -1,10 +1,10 @@
 <template>
   <RestBonusBar
-    :rest-bonus="char.dailies.unas.rest_bonus"
+    :rest-bonus="char.dailies.common[dailyName].rest_bonus"
     :completions="completions"
-    :max-completions="3"
-    @change="changeUnasRestBonus($event)"
-    @update="updateUnasRestBonus($event)"
+    :max-completions="maxCompletions"
+    @change="changeRestBonus($event)"
+    @update="updateRestBonus($event)"
   />
 </template>
 
@@ -14,11 +14,19 @@ import RestBonusBar from '@/components/progress/RestBonusBar'
 export default {
   components: { RestBonusBar },
   props: {
+    dailyName: {
+      type: String,
+      required: true,
+    },
     charName: {
       type: String,
       required: true,
     },
     completions: {
+      type: Number,
+      required: true,
+    },
+    maxCompletions: {
       type: Number,
       required: true,
     },
@@ -39,21 +47,23 @@ export default {
     },
   },
   methods: {
-    changeUnasRestBonus(value) {
+    changeRestBonus(value) {
       const current =
-        this.char.dailies.unas.rest_bonus.value === undefined ? 0 : this.char.dailies.unas.rest_bonus.value
+        this.char.dailies.common[this.dailyName].rest_bonus.value === undefined
+          ? 0
+          : this.char.dailies.common[this.dailyName].rest_bonus.value
       if (current + value > 100) {
-        this.char.dailies.unas.rest_bonus.value = 100
+        this.char.dailies.common[this.dailyName].rest_bonus.value = 100
       } else if (current + value < 0) {
-        this.char.dailies.unas.rest_bonus.value = 0
+        this.char.dailies.common[this.dailyName].rest_bonus.value = 0
       } else {
-        this.char.dailies.unas.rest_bonus.value += value
+        this.char.dailies.common[this.dailyName].rest_bonus.value += value
       }
 
       this.updateAndRefresh(this.characters)
     },
-    updateUnasRestBonus(date) {
-      this.char.dailies.unas.rest_bonus.last_update = date
+    updateRestBonus(date) {
+      this.char.dailies.common[this.dailyName].rest_bonus.last_update = date
       this.updateAndRefresh(this.characters)
     },
     updateAndRefresh(characters) {
