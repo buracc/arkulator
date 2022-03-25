@@ -14,7 +14,7 @@
           <span v-if="Object.entries(char.dailies.unas.reputations).length === 0">
             No dailies added, add a daily to start tracking.
           </span>
-          <v-list v-else outlined>
+          <v-list v-else two-line>
             <v-list-item v-for="(daily, reputationName) of char.dailies.unas.reputations" :key="reputationName">
               <v-list-item-content>
                 <v-list-item-title>
@@ -27,8 +27,8 @@
                     <v-col>
                       {{ quest.name }}
                       <v-list-item-subtitle>
-                        {{ quests[quest.name].location['continent'] }}:
-                        {{ quests[quest.name].location['area'] }}
+                        {{ quests[quest.name].location.continent }}:
+                        {{ quests[quest.name].location.area }}
                       </v-list-item-subtitle>
                       <v-list-item-subtitle color="red" v-if="!isIlvlMetForQuest(charName, quest)">
                         Required Item Level: {{ quests[quest.name].ilvl }}

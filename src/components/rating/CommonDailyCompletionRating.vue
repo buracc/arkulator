@@ -1,10 +1,8 @@
 <template>
   <v-row>
     <v-col>
-      Completions:
       <v-rating
-        length="2"
-        :value="characters[charName].dailies.common[dailyName].max_completions"
+        :length="characters[charName].dailies.common[dailyName].max_completions"
         v-model="completions"
         clearable
       />
@@ -31,6 +29,13 @@ export default {
       },
       set(value) {
         this.characters[this.charName].dailies.common[this.dailyName].completions = value
+        for (let i = 0; i < value; i++) {
+          const currentRestBonus = this.characters[this.charName].dailies.common[this.dailyName].rest_bonus.value
+          if (currentRestBonus > 10) {
+            this.characters[this.charName].dailies.common[this.dailyName].rest_bonus.value -= 20
+          }
+        }
+
         this.updateAndRefresh(this.characters)
       },
     },

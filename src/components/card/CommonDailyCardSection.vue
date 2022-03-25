@@ -20,10 +20,10 @@
                   :completions="daily.completions ? daily.completions : 0"
                   :max-completions="daily.max_completions"
                 />
-                <CommonDailyCompletionRating :char-name="charName" :daily-name="dailyName" />
               </v-list-item-content>
 
               <v-list-item-action>
+                <CommonDailyCompletionRating :char-name="charName" :daily-name="dailyName" />
                 <v-btn text outlined @click="deleteDaily(charName, dailyName)">
                   <v-icon small>mdi-delete</v-icon>
                 </v-btn>

@@ -1,7 +1,7 @@
 <template>
-  <v-main>
+  <v-container>
     <v-row>
-      <v-col md="3" v-for="(char, charName) of characters" :key="charName">
+      <v-col md="4" v-for="(char, charName) of characters" :key="charName">
         <v-card>
           <v-card-title>
             {{ charName }} ({{ char.ilvl }})
@@ -14,17 +14,19 @@
       </v-col>
     </v-row>
 
-    <v-col md="3">
-      <v-card>
-        <v-card-title> Add new character</v-card-title>
-        <v-card-text>
-          <v-text-field label="Character name" v-model="addCharName" />
-          <v-text-field label="Item level" v-model="addItemLevel" />
-          <v-btn @click="addCharacter">Add character</v-btn>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-main>
+    <v-row>
+      <v-col md="6">
+        <v-card>
+          <v-card-title> Add new character</v-card-title>
+          <v-card-text>
+            <v-text-field label="Character name" v-model="addCharName" />
+            <v-text-field label="Item level" v-model="addItemLevel" />
+            <v-btn @click="addCharacter">Add character</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

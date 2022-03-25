@@ -1,7 +1,7 @@
 <template>
-  <v-card>
-    <v-row style="padding: 1%">
-      <v-col md="3">
+  <v-container>
+    <v-row>
+      <v-col>
         <v-card>
           <v-card-title>Crystal conversion rate</v-card-title>
           <v-card-text>
@@ -12,7 +12,7 @@
         </v-card>
       </v-col>
 
-      <v-col md="3">
+      <v-col>
         <v-card>
           <v-card-title>Prices</v-card-title>
           <v-card-text>
@@ -41,8 +41,8 @@
       </v-col>
     </v-row>
 
-    <v-row style="padding: 1%">
-      <v-col md="9">
+    <v-row>
+      <v-col>
         <v-card>
           <v-card-title>Exchange rates</v-card-title>
           <v-card-text>
@@ -109,7 +109,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
