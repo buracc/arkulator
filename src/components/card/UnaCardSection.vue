@@ -3,7 +3,7 @@
     <v-card-title> Una's dailies</v-card-title>
 
     <v-card-text>
-      <UnasRestBonusBar :char-name="charName" :completions="this.getQuestsCompletedToday()" />
+      <UnasRestBonusBar :char-name="charName" :completions="getQuestsCompletedToday()" />
       <v-row>
         <v-col>
           <v-divider />

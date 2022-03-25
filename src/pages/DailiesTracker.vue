@@ -38,13 +38,21 @@
           <v-card-text>
             <v-row>
               <v-col>
-                <v-select :items="Object.keys(commonDailies)" label="Common dailies" v-model="selectedCommonDaily" />
+                <v-select
+                  :items="Object.keys(commonDailies)"
+                  label="Common dailies (Chaos, Guardian)"
+                  v-model="selectedCommonDaily"
+                />
               </v-col>
             </v-row>
             <v-row>
               <v-col>
                 <v-divider />
-                <v-select :items="Object.keys(reputations)" label="Reputation questline" v-model="selectedReputation" />
+                <v-select
+                  :items="Object.keys(reputations)"
+                  label="Una's Reputation questline"
+                  v-model="selectedReputation"
+                />
 
                 <v-row dense v-if="selectedReputation">
                   <v-col>
@@ -163,7 +171,7 @@ export default {
 
       const chars = this.characters
       chars[charName].dailies.unas.reputations[repName] = {
-        rep_level: '1',
+        rep_level: 1,
         rep_xp: 0,
         quests: quests,
       }

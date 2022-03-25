@@ -4,7 +4,12 @@
       <v-col md="4" v-for="(char, charName) of characters" :key="charName">
         <v-card>
           <v-card-title>
-            {{ charName }} ({{ char.ilvl }})
+            <CharacterCardTitle
+              :char-name="charName"
+              :ilvl="char.ilvl"
+              @change-name="changeName(charName, $event)"
+              @change-ilvl="changeItemLevel(charName, $event)"
+            />
             <v-spacer />
             <v-btn text @click="deleteCharacter(charName)">
               <v-icon>mdi-delete</v-icon>
@@ -21,7 +26,7 @@
           <v-card-text>
             <v-text-field label="Character name" v-model="addCharName" />
             <v-text-field label="Item level" v-model="addItemLevel" />
-            <v-btn @click="addCharacter">Add character</v-btn>
+            <v-btn @click="addCharacter()">Add character</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -30,7 +35,9 @@
 </template>
 
 <script>
+import CharacterCardTitle from '@/components/card/CharacterCardTitle'
 export default {
+  components: { CharacterCardTitle },
   computed: {
     quests: {
       get() {
@@ -60,7 +67,7 @@ export default {
       const characters = this.characters
       delete characters[name]
 
-      this.updateAndRefresh(name, characters)
+      this.updateAndRefresh(characters)
     },
     addCharacter() {
       const characters = this.characters
@@ -78,11 +85,27 @@ export default {
         },
       }
 
-      this.updateAndRefresh(this.addCharName, characters)
+      this.updateAndRefresh(characters)
     },
-    updateAndRefresh(name, characters) {
+    updateAndRefresh(characters) {
       this.characters = characters // updates the store
       this.$forceUpdate()
+    },
+    changeName(oldName, newName) {
+      if (oldName === newName) {
+        return
+      }
+      const characters = this.characters
+      characters[newName] = characters[oldName]
+      delete characters[oldName]
+
+      this.updateAndRefresh(characters)
+    },
+    changeItemLevel(charName, newItemLevel) {
+      const characters = this.characters
+      characters[charName].ilvl = newItemLevel
+
+      this.updateAndRefresh(characters)
     },
   },
 }
