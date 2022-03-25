@@ -2,14 +2,30 @@
   <div>
     <v-row>
       <v-col>
-        <v-text-field label="Name" v-if="editingName" v-model="newName" @keydown="submitName" />
-        <span v-else @click="editName">Name: {{ charName }}</span>
+        <v-text-field label="Name" v-if="editing['name']" v-model="edit['name']" @keydown="submit('name', $event)" />
+        <span v-else @click="editProperty('name', charName)">Name: {{ charName }}</span>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <v-text-field label="Item level" v-if="editingIlvl" v-model="newIlvl" @keydown="submitIlvl" />
-        <span v-else @click="editIlvl">Item level: {{ ilvl }}</span>
+        <v-text-field
+          label="Item level"
+          v-if="editing['ilvl']"
+          v-model="edit['ilvl']"
+          @keydown="submit('ilvl', $event)"
+        />
+        <span v-else @click="editProperty('ilvl', ilvl)">Item level: {{ ilvl }}</span>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-text-field
+          label="Class"
+          v-if="editing['class']"
+          v-model="edit['class']"
+          @keydown="submit('class', $event)"
+        />
+        <span v-else @click="editProperty('class', charClass)">Class: {{ charClass }}</span>
       </v-col>
     </v-row>
   </div>
@@ -26,31 +42,24 @@ export default {
       type: String,
       required: true,
     },
+    charClass: {
+      type: String,
+      required: true,
+    },
   },
   data: () => ({
-    editingName: false,
-    editingIlvl: false,
-    newName: '',
-    newIlvl: '',
+    edit: { name: '', ilvl: '', class: '' },
+    editing: { class: false, name: false, ilvl: false },
   }),
   methods: {
-    editName() {
-      this.editingName = true
-      this.newName = this.charName
+    editProperty(property, defaultValue) {
+      this.editing[property] = true
+      this.edit[property] = defaultValue
     },
-    editIlvl() {
-      this.editingIlvl = true
-      this.newIlvl = this.ilvl
-    },
-    submitName(keyEvent) {
+    submit(field, keyEvent) {
       if (keyEvent.key !== 'Enter') return
-      this.$emit('change-name', this.newName)
-      this.editingName = false
-    },
-    submitIlvl(keyEvent) {
-      if (keyEvent.key !== 'Enter') return
-      this.$emit('change-ilvl', this.newIlvl)
-      this.editingIlvl = false
+      this.editing[field] = false
+      this.$emit(`change-${field}`, this.edit[field])
     },
   },
 }

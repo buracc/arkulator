@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-for="(char, charName) of characters" :key="charName">
+      <v-col md="4" v-for="(char, charName) of characters" :key="charName">
         <v-card>
           <v-card-title> {{ charName }} ({{ char.ilvl }})</v-card-title>
           <v-card-text>

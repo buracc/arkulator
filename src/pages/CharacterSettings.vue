@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-col md="4" v-for="(char, charName) of characters" :key="charName">
         <v-card>
@@ -7,8 +7,10 @@
             <CharacterCardTitle
               :char-name="charName"
               :ilvl="char.ilvl"
+              :char-class="char.class"
               @change-name="changeName(charName, $event)"
-              @change-ilvl="changeItemLevel(charName, $event)"
+              @change-ilvl="changeProperty(charName, 'ilvl', $event)"
+              @change-class="changeProperty(charName, 'class', $event)"
             />
             <v-spacer />
             <v-btn text @click="deleteCharacter(charName)">
@@ -26,6 +28,7 @@
           <v-card-text>
             <v-text-field label="Character name" v-model="addCharName" />
             <v-text-field label="Item level" v-model="addItemLevel" />
+            <v-text-field label="Class" v-model="addClass" />
             <v-btn @click="addCharacter()">Add character</v-btn>
           </v-card-text>
         </v-card>
@@ -61,6 +64,7 @@ export default {
   data: () => ({
     addCharName: '',
     addItemLevel: '',
+    addClass: '',
   }),
   methods: {
     deleteCharacter(name) {
@@ -73,6 +77,7 @@ export default {
       const characters = this.characters
       characters[this.addCharName] = {
         ilvl: this.addItemLevel,
+        class: this.addClass,
         dailies: {
           unas: {
             rest_bonus: {
@@ -101,9 +106,9 @@ export default {
 
       this.updateAndRefresh(characters)
     },
-    changeItemLevel(charName, newItemLevel) {
+    changeProperty(charName, property, value) {
       const characters = this.characters
-      characters[charName].ilvl = newItemLevel
+      characters[charName][property] = value
 
       this.updateAndRefresh(characters)
     },
