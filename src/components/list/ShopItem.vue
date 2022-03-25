@@ -5,7 +5,7 @@
     </v-list-item-icon>
     <v-list-item-content>
       <div>
-        <v-list-item-title> {{ name }} x{{ amount * amountMultiplier }}</v-list-item-title>
+        <v-list-item-title> {{ name }} x{{ amount }} ({{ amountMultiplier }})</v-list-item-title>
       </div>
 
       <v-row>
@@ -53,16 +53,16 @@ export default {
       required: true,
     },
     amount: {
-      type: String,
+      type: Number,
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     amountMultiplier: {
-      type: String,
-      default: '1',
+      type: Number,
+      default: 1,
       required: false,
     },
   },

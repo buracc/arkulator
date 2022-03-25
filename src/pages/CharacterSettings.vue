@@ -1,10 +1,17 @@
 <template>
-  <v-main>
+  <v-container fluid>
     <v-row>
-      <v-col md="3" v-for="(char, charName) of characters" :key="charName">
+      <v-col md="4" v-for="(char, charName) of characters" :key="charName">
         <v-card>
           <v-card-title>
-            {{ charName }} ({{ char.ilvl }})
+            <CharacterCardTitle
+              :char-name="charName"
+              :ilvl="char.ilvl"
+              :char-class="char.class"
+              @change-name="changeName(charName, $event)"
+              @change-ilvl="changeProperty(charName, 'ilvl', $event)"
+              @change-class="changeProperty(charName, 'class', $event)"
+            />
             <v-spacer />
             <v-btn text @click="deleteCharacter(charName)">
               <v-icon>mdi-delete</v-icon>
@@ -14,21 +21,26 @@
       </v-col>
     </v-row>
 
-    <v-col md="3">
-      <v-card>
-        <v-card-title> Add new character</v-card-title>
-        <v-card-text>
-          <v-text-field label="Character name" v-model="addCharName" />
-          <v-text-field label="Item level" v-model="addItemLevel" />
-          <v-btn @click="addCharacter">Add character</v-btn>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-main>
+    <v-row>
+      <v-col md="6">
+        <v-card>
+          <v-card-title> Add new character</v-card-title>
+          <v-card-text>
+            <v-text-field label="Character name" v-model="addCharName" />
+            <v-text-field label="Item level" v-model="addItemLevel" />
+            <v-text-field label="Class" v-model="addClass" />
+            <v-btn @click="addCharacter()">Add character</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import CharacterCardTitle from '@/components/card/CharacterCardTitle'
 export default {
+  components: { CharacterCardTitle },
   computed: {
     quests: {
       get() {
@@ -52,26 +64,53 @@ export default {
   data: () => ({
     addCharName: '',
     addItemLevel: '',
+    addClass: '',
   }),
   methods: {
     deleteCharacter(name) {
       const characters = this.characters
       delete characters[name]
 
-      this.updateAndRefresh(name, characters)
+      this.updateAndRefresh(characters)
     },
     addCharacter() {
       const characters = this.characters
       characters[this.addCharName] = {
         ilvl: this.addItemLevel,
-        dailies: {},
+        class: this.addClass,
+        dailies: {
+          unas: {
+            rest_bonus: {
+              value: 0,
+              last_update: new Date().getTime(),
+            },
+            reputations: {},
+          },
+          common: {},
+        },
       }
 
-      this.updateAndRefresh(this.addCharName, characters)
+      this.updateAndRefresh(characters)
     },
-    updateAndRefresh(name, characters) {
+    updateAndRefresh(characters) {
       this.characters = characters // updates the store
       this.$forceUpdate()
+    },
+    changeName(oldName, newName) {
+      if (oldName === newName) {
+        return
+      }
+      const characters = this.characters
+      characters[newName] = characters[oldName]
+      delete characters[oldName]
+
+      this.updateAndRefresh(characters)
+    },
+    changeProperty(charName, property, value) {
+      const characters = this.characters
+      characters[charName][property] = value
+
+      this.updateAndRefresh(characters)
     },
   },
 }
