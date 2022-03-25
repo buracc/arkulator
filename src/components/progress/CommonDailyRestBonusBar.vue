@@ -64,6 +64,7 @@ export default {
     },
     updateRestBonus(date) {
       this.char.dailies.common[this.dailyName].rest_bonus.last_update = date
+      this.char.dailies.common[this.dailyName].completions = 0
       this.updateAndRefresh(this.characters)
     },
     updateAndRefresh(characters) {

@@ -112,16 +112,16 @@ export default {
       'Chaos Dungeon': {
         rest_bonus: {
           value: 0,
+          last_update: new Date().getTime(),
         },
-
         completions: 0,
         max_completions: 2,
       },
       'Guardian Raid': {
         rest_bonus: {
           value: 0,
+          last_update: new Date().getTime(),
         },
-
         completions: 0,
         max_completions: 2,
       },

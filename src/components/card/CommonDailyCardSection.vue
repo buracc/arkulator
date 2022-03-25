@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title> Common dailies </v-card-title>
+    <v-card-title> Common dailies</v-card-title>
 
     <v-card-text>
       <v-row>
@@ -12,17 +12,15 @@
             <v-list-item v-for="(daily, dailyName) of char.dailies.common" :key="dailyName">
               <v-list-item-content>
                 <v-card-subtitle
-                  >{{ dailyName }} ({{ daily.completions ? daily.completions : 0 }}/{{
-                    daily.max_completions
-                  }})</v-card-subtitle
-                >
+                  >{{ dailyName }} ({{ daily.completions ? daily.completions : 0 }}/{{ daily.max_completions }})
+                </v-card-subtitle>
                 <CommonDailyRestBonusBar
                   :daily-name="dailyName"
                   :char-name="charName"
                   :completions="daily.completions ? daily.completions : 0"
                   :max-completions="daily.max_completions"
                 />
-                <v-btn @click="completeDaily(charName, dailyName)"> Complete </v-btn>
+                <CommonDailyCompletionRating :char-name="charName" :daily-name="dailyName" />
               </v-list-item-content>
 
               <v-list-item-action>
@@ -42,15 +40,19 @@
 
 <script>
 import CommonDailyRestBonusBar from '@/components/progress/CommonDailyRestBonusBar'
+import CommonDailyCompletionRating from '@/components/rating/CommonDailyCompletionRating'
 
 export default {
-  components: { CommonDailyRestBonusBar },
+  components: { CommonDailyCompletionRating, CommonDailyRestBonusBar },
   props: {
     charName: {
       type: String,
       required: true,
     },
   },
+  data: () => ({
+    completions: 0,
+  }),
   computed: {
     resetDate: {
       get() {
@@ -78,14 +80,8 @@ export default {
     },
   },
   methods: {
-    completeDaily(charName, dailyName) {
-      const currentCompletions = this.char.dailies.common[dailyName].completions
-      const maxCompletions = this.char.dailies.common[dailyName].max_completions
-      if (currentCompletions && currentCompletions === maxCompletions) {
-        return
-      }
-
-      this.characters[charName].dailies.common[dailyName].completions += 1
+    completeDaily(charName, dailyName, completions) {
+      this.characters[charName].dailies.common[dailyName].completions = completions
       this.updateAndRefresh(this.characters)
     },
     deleteDaily(charName, dailyName) {

@@ -14,7 +14,7 @@
           <span v-if="Object.entries(char.dailies.unas.reputations).length === 0">
             No dailies added, add a daily to start tracking.
           </span>
-          <v-list v-else flat>
+          <v-list v-else outlined>
             <v-list-item v-for="(daily, reputationName) of char.dailies.unas.reputations" :key="reputationName">
               <v-list-item-content>
                 <v-list-item-title>

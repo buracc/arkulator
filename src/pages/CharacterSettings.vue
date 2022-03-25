@@ -68,6 +68,7 @@ export default {
           unas: {
             rest_bonus: {
               value: 0,
+              last_update: new Date().getTime(),
             },
             reputations: {},
           },
