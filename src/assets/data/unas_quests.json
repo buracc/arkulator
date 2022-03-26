@@ -225,5 +225,44 @@
       "Small Combat XP Potion": "1 ~ 5",
       "Food Chest for Trade": "1"
     }
+  },
+  "Prisoner Emancipation": {
+    "location": {
+      "continent": "Islands",
+      "area": "Kalthertz"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "10",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Ride like the Wind": {
+    "location": {
+      "continent": "Islands",
+      "area": "Peyto"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "8",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Where It Belongs": {
+    "location": {
+      "continent": "Shushire",
+      "area": "Frozen Seas"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "8",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }

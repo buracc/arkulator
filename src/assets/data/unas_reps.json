@@ -509,5 +509,91 @@
         "name": "Market Research"
       }
     ]
+  },
+  "Prisoner Release": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Stat Increase Potion": 1,
+          "Masterpiece #18": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Prisoner Emancipation"
+      }
+    ]
+  },
+  "Fast Sailing Sprint: Eurus": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Pirate Coin": 6000
+        }
+      },
+      "2": {
+        "xp": 60,
+        "rewards": {
+          "Pirate Coin": 12000
+        }
+      },
+      "3": {
+        "xp": 120,
+        "rewards": {
+          "Pirate Coin": 24000,
+          "Fast Sailing Sprint: Eurus": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Ride like the Wind"
+      }
+    ]
+  },
+  "Back to Where It Belongs": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Silver": 5000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Silver": 14000,
+          "Stat Increase Potion": 1,
+          "Rubenstein del Orazio Card": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Where It Belongs"
+      }
+    ]
   }
 }
