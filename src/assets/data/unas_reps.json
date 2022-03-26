@@ -595,5 +595,61 @@
         "name": "Where It Belongs"
       }
     ]
+  },
+  "Pest Control": {
+    "levels": {
+      "1": {
+        "xp": 30,
+        "rewards": {
+          "Pirate Coin": 6000
+        }
+      },
+      "2": {
+        "xp": 40,
+        "rewards": {
+          "Pirate Coin": 8000
+        }
+      },
+      "3": {
+        "xp": 80,
+        "rewards": {
+          "Pirate Coin": 16000,
+          "Vitality Increase potion": 1,
+          "Certificate of Pirate": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Pest Control"
+      }
+    ]
+  },
+  "A Stranded Ship": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 2000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 4000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 7000
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Replacement Parts"
+      }
+    ]
   }
 }

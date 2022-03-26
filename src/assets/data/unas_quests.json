@@ -264,5 +264,44 @@
       "Leapstones (T1 ~ T3)": "8",
       "Small Combat XP Potion": "1 ~ 5"
     }
+  },
+  "Rubbing Away the Marks of Time": {
+    "location": {
+      "continent": "Islands",
+      "area": "Toto Silver Island"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "6",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Pest Control": {
+    "location": {
+      "continent": "Islands",
+      "area": "Blackfang's Den"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "8",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Replacement Parts": {
+    "location": {
+      "continent": "Islands",
+      "area": "Golden Wave Island"
+    },
+    "ilvl": 250,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "6",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }
