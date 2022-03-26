@@ -651,5 +651,64 @@
         "name": "Replacement Parts"
       }
     ]
+  },
+  "The Defense": {
+    "levels": {
+      "1": {
+        "xp": 20,
+        "rewards": {
+          "Pirate Coin": 17000
+        }
+      },
+      "2": {
+        "xp": 30,
+        "rewards": {
+          "Pirate Coin": 19000,
+          "Stat Increase Potion": 19000
+        }
+      },
+      "3": {
+        "xp": 50,
+        "rewards": {
+          "Pirate Coin": 36000,
+          "Courage Potion": 1,
+          "Predator of the Sea: Tragon": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Playing by the Pirates' Rules"
+      }
+    ]
+  },
+  "Treasure of Gravis": {
+    "levels": {
+      "1": {
+        "xp": 10,
+        "rewards": {
+          "Silver": 3000
+        }
+      },
+      "2": {
+        "xp": 20,
+        "rewards": {
+          "Silver": 6000
+        }
+      },
+      "3": {
+        "xp": 40,
+        "rewards": {
+          "Silver": 13000,
+          "Vitality Increase Potion": 1,
+          "Crafting Recipe: Brown Sunbed": 1
+        }
+      }
+    },
+    "quests": [
+      {
+        "name": "Happy Helper"
+      }
+    ]
   }
 }

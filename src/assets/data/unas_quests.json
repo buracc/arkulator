@@ -303,5 +303,31 @@
       "Leapstones (T1 ~ T3)": "6",
       "Small Combat XP Potion": "1 ~ 5"
     }
+  },
+  "Playing by the Pirates' Rules": {
+    "location": {
+      "continent": "Islands",
+      "area": "Hypnos's Eyes"
+    },
+    "ilvl": 415,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Leapstones (T1 ~ T3)": "10",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
+  },
+  "Happy Helper": {
+    "location": {
+      "continent": "Islands",
+      "area": "Gravis"
+    },
+    "ilvl": 415,
+    "rewards": {
+      "Roster XP": "240",
+      "Reputation": "10",
+      "Silver": "12410",
+      "Small Combat XP Potion": "1 ~ 5"
+    }
   }
 }
