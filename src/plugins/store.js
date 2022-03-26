@@ -19,6 +19,12 @@ export const store = new Vuex.Store({
 
     characters: {},
   },
+  getters: {
+    getCharacters(state) {
+      return state.characters
+    },
+  },
+  actions: {},
   mutations: {
     init(state) {
       state.minTxAmount = ifStored('mintx', 238)
@@ -35,10 +41,64 @@ export const store = new Vuex.Store({
 
       state.characters = JSON.parse(ifStored('characters', '{}'))
     },
-    setCharacters(state, value) {
-      state.characters = value
-      localStorage.setItem('characters', JSON.stringify(value))
+    // Character mutations
+    deleteCharacter(state, charName) {
+      Vue.delete(state.characters, charName)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
     },
+    setCommonDailyCompletions(state, data) {
+      const charName = data.charName
+      const dailyName = data.dailyName
+      const value = data.value
+      Vue.set(state.characters[charName].dailies.common[dailyName], 'completions', value)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    setCommonDailyRestBonus(state, data) {
+      const charName = data.charName
+      const dailyName = data.dailyName
+      const property = data.property
+      const value = data.value
+      Vue.set(state.characters[charName].dailies.common[dailyName].rest_bonus, property, value)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    setCommonDaily(state, data) {
+      const dailyName = data.dailyName
+      const charName = data.charName
+      const daily = data.daily
+      Vue.set(state.characters[charName].dailies.common, dailyName, daily)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    deleteCommonDaily(state, data) {
+      const dailyName = data.dailyName
+      const charName = data.charName
+      Vue.delete(state.characters[charName].dailies.common, dailyName)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    setUnaRestBonus(state, data) {
+      const charName = data.charName
+      const property = data.property
+      const value = data.value
+      Vue.set(state.characters[charName].dailies.unas.rest_bonus, property, value)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    deleteUnaReputation(state, data) {
+      const repName = data.repName
+      const charName = data.charName
+      Vue.delete(state.characters[charName].dailies.unas.reputations, repName)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    setUnaReputation(state, data) {
+      const charName = data.charName
+      const repName = data.repName
+      const reputation = data.reputation
+      Vue.set(state.characters[charName].dailies.unas.reputations, repName, reputation)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    setCharacter(state, data) {
+      Vue.set(state.characters, data.name, data.char)
+      localStorage.setItem('characters', JSON.stringify(state.characters))
+    },
+    // Currencies settings
     setSalePrice(state, value) {
       state.recSalePrice = value
       localStorage.setItem('saleprice', value)

@@ -34,15 +34,7 @@ export default {
   computed: {
     char: {
       get() {
-        return this.characters[this.charName]
-      },
-    },
-    characters: {
-      get() {
-        return this.$store.state.characters
-      },
-      set(value) {
-        this.$store.commit('setCharacters', value)
+        return this.$store.state.characters[this.charName]
       },
     },
   },
@@ -53,23 +45,28 @@ export default {
           ? 0
           : this.char.dailies.common[this.dailyName].rest_bonus.value
       if (current + value > 100) {
-        this.char.dailies.common[this.dailyName].rest_bonus.value = 100
+        this.setRestBonus('value', 100)
       } else if (current + value < 0) {
-        this.char.dailies.common[this.dailyName].rest_bonus.value = 0
+        this.setRestBonus('value', 0)
       } else {
-        this.char.dailies.common[this.dailyName].rest_bonus.value += value
+        this.setRestBonus('value', current + value)
       }
-
-      this.updateAndRefresh(this.characters)
+    },
+    setRestBonus(property, value) {
+      this.$store.commit('setCommonDailyRestBonus', {
+        charName: this.charName,
+        dailyName: this.dailyName,
+        property: property,
+        value: value,
+      })
     },
     updateRestBonus(date) {
-      this.char.dailies.common[this.dailyName].rest_bonus.last_update = date
-      this.char.dailies.common[this.dailyName].completions = 0
-      this.updateAndRefresh(this.characters)
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
+      this.setRestBonus('last_update', date)
+      this.$store.commit('setCommonDailyCompletions', {
+        charName: this.charName,
+        dailyName: this.dailyName,
+        value: 0,
+      })
     },
   },
 }

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// 1648286562000
 export default {
   props: {
     restBonus: {
@@ -64,7 +65,7 @@ export default {
     },
     changeRestBonus(value) {
       if (this.restBonus.value + value > 100) {
-        this.$emit('change', 0)
+        this.$emit('change', 100)
       } else if (this.restBonus.value + value < 0) {
         this.$emit('change', 0)
       } else {

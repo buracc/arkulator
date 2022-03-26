@@ -28,30 +28,29 @@ export default {
         return this.characters[this.charName].dailies.common[this.dailyName].completions
       },
       set(value) {
-        this.characters[this.charName].dailies.common[this.dailyName].completions = value
-        for (let i = 0; i < value; i++) {
+        const currentCompletions = this.characters[this.charName].dailies.common[this.dailyName].completions
+        this.$store.commit('setCommonDailyCompletions', {
+          charName: this.charName,
+          dailyName: this.dailyName,
+          value: value,
+        })
+        for (let i = 0; i < value - currentCompletions; i++) {
           const currentRestBonus = this.characters[this.charName].dailies.common[this.dailyName].rest_bonus.value
           if (currentRestBonus > 10) {
-            this.characters[this.charName].dailies.common[this.dailyName].rest_bonus.value -= 20
+            this.$store.commit('setCommonDailyRestBonus', {
+              charName: this.charName,
+              dailyName: this.dailyName,
+              property: 'value',
+              value: currentRestBonus - 20,
+            })
           }
         }
-
-        this.updateAndRefresh(this.characters)
       },
     },
     characters: {
       get() {
         return this.$store.state.characters
       },
-      set(value) {
-        this.$store.commit('setCharacters', value)
-      },
-    },
-  },
-  methods: {
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
     },
   },
 }

@@ -69,9 +69,6 @@ export default {
       get() {
         return this.$store.state.characters
       },
-      set(value) {
-        this.$store.commit('setCharacters', value)
-      },
     },
     now: {
       get() {
@@ -80,19 +77,8 @@ export default {
     },
   },
   methods: {
-    completeDaily(charName, dailyName, completions) {
-      this.characters[charName].dailies.common[dailyName].completions = completions
-      this.updateAndRefresh(this.characters)
-    },
     deleteDaily(charName, dailyName) {
-      const chars = this.characters
-      delete chars[charName].dailies.common[dailyName]
-
-      this.updateAndRefresh(chars)
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
+      this.$store.commit('deleteCommonDaily', { charName: charName, dailyName: dailyName })
     },
   },
 }

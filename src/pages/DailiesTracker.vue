@@ -152,9 +152,6 @@ export default {
       get() {
         return this.$store.state.characters
       },
-      set(value) {
-        this.$store.commit('setCharacters', value)
-      },
     },
   },
   methods: {
@@ -169,18 +166,22 @@ export default {
         }
       })
 
-      const chars = this.characters
-      chars[charName].dailies.unas.reputations[repName] = {
-        rep_level: 1,
-        rep_xp: 0,
-        quests: quests,
-      }
-
-      this.updateAndRefresh(chars)
+      this.$store.commit('setUnaReputation', {
+        charName: charName,
+        repName: repName,
+        reputation: {
+          rep_level: 1,
+          rep_xp: 0,
+          quests: quests,
+        },
+      })
     },
     addCommonDaily(charName, dailyName) {
-      this.characters[charName].dailies.common[dailyName] = this.commonDailies[dailyName]
-      this.updateAndRefresh(this.characters)
+      this.$store.commit('setCommonDaily', {
+        charName: charName,
+        dailyName: dailyName,
+        daily: this.commonDailies[dailyName],
+      })
     },
     canAddCommonDaily(charName, dailyName) {
       return this.characters[charName].dailies.common[dailyName] === undefined
@@ -198,10 +199,6 @@ export default {
       }
 
       return this.characters[charName].dailies.unas.reputations[repName] === undefined
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
     },
   },
 }

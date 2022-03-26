@@ -56,9 +56,6 @@ export default {
       get() {
         return this.$store.state.characters
       },
-      set(value) {
-        this.$store.commit('setCharacters', value)
-      },
     },
   },
   data: () => ({
@@ -68,14 +65,10 @@ export default {
   }),
   methods: {
     deleteCharacter(name) {
-      const characters = this.characters
-      delete characters[name]
-
-      this.updateAndRefresh(characters)
+      this.$store.commit('deleteCharacter', name)
     },
     addCharacter() {
-      const characters = this.characters
-      characters[this.addCharName] = {
+      const char = {
         ilvl: this.addItemLevel,
         class: this.addClass,
         dailies: {
@@ -90,27 +83,31 @@ export default {
         },
       }
 
-      this.updateAndRefresh(characters)
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
+      this.$store.commit('setCharacter', {
+        name: this.addCharName,
+        char: char,
+      })
     },
     changeName(oldName, newName) {
       if (oldName === newName) {
         return
       }
       const characters = this.characters
-      characters[newName] = characters[oldName]
-      delete characters[oldName]
-
-      this.updateAndRefresh(characters)
+      const oldChar = characters[oldName]
+      const newChar = (characters[newName] = oldChar)
+      this.$store.commit('setCharacter', {
+        name: newName,
+        char: newChar,
+      })
+      this.$store.commit('deleteCharacter', oldName)
     },
     changeProperty(charName, property, value) {
-      const characters = this.characters
-      characters[charName][property] = value
-
-      this.updateAndRefresh(characters)
+      const char = this.characters[charName]
+      char[property] = value
+      this.$store.commit('setCharacter', {
+        name: charName,
+        char: char,
+      })
     },
   },
 }

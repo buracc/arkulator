@@ -114,9 +114,6 @@ export default {
       get() {
         return this.$store.state.characters
       },
-      set(value) {
-        this.$store.commit('setCharacters', value)
-      },
     },
     now: {
       get() {
@@ -126,10 +123,10 @@ export default {
   },
   methods: {
     deleteDaily(charName, repName) {
-      const chars = this.characters
-      delete chars[charName].dailies.unas.reputations[repName]
-
-      this.updateAndRefresh(chars)
+      this.$store.commit('deleteUnaReputation', {
+        charName: charName,
+        repName: repName,
+      })
     },
     getDisplayedXp(repName, lvl, xp) {
       const maxXp = this.getMaxXp(repName, lvl)
@@ -179,7 +176,10 @@ export default {
         reputation.rep_level++
       }
 
-      this.updateAndRefresh(this.characters)
+      this.$store.commit('setCharacter', {
+        name: charName,
+        char: this.char,
+      })
     },
     uncompleteQuest(charName, dailyName, questName) {
       const reps = this.char.dailies.unas.reputations
@@ -197,7 +197,10 @@ export default {
         reputation.rep_xp = this.getMaxXp(dailyName, reputation.rep_level) - 10
       }
 
-      this.updateAndRefresh(this.characters)
+      this.$store.commit('setCharacter', {
+        name: charName,
+        char: this.char,
+      })
     },
     isQuestMaxed(quest) {
       return quest.max_progress !== undefined && quest.progress === quest.max_progress
@@ -222,7 +225,10 @@ export default {
         quest.last_completed = null
       }
 
-      this.updateAndRefresh(this.characters)
+      this.$store.commit('setCharacter', {
+        name: charName,
+        char: this.char,
+      })
     },
     isIlvlMetForQuest(charName, quest) {
       return this.char.ilvl >= this.quests[quest.name].ilvl
@@ -240,10 +246,6 @@ export default {
       }
 
       return total
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
     },
   },
 }

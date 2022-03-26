@@ -26,15 +26,7 @@ export default {
   computed: {
     char: {
       get() {
-        return this.characters[this.charName]
-      },
-    },
-    characters: {
-      get() {
-        return this.$store.state.characters
-      },
-      set(value) {
-        this.$store.commit('setCharacters', value)
+        return this.$store.state.characters[this.charName]
       },
     },
   },
@@ -43,22 +35,26 @@ export default {
       const current =
         this.char.dailies.unas.rest_bonus.value === undefined ? 0 : this.char.dailies.unas.rest_bonus.value
       if (current + value > 100) {
-        this.char.dailies.unas.rest_bonus.value = 100
+        this.setUnasRestBonusValue(100)
       } else if (current + value < 0) {
-        this.char.dailies.unas.rest_bonus.value = 0
+        this.setUnasRestBonusValue(0)
       } else {
-        this.char.dailies.unas.rest_bonus.value += value
+        this.setUnasRestBonusValue(current + value)
       }
-
-      this.updateAndRefresh(this.characters)
+    },
+    setUnasRestBonusValue(value) {
+      this.$store.commit('setUnaRestBonus', {
+        charName: this.charName,
+        property: 'value',
+        value: value,
+      })
     },
     updateUnasRestBonus(date) {
-      this.char.dailies.unas.rest_bonus.last_update = date
-      this.updateAndRefresh(this.characters)
-    },
-    updateAndRefresh(characters) {
-      this.characters = characters // updates the store
-      this.$forceUpdate()
+      this.$store.commit('setUnaRestBonus', {
+        charName: this.charName,
+        property: 'last_update',
+        value: date,
+      })
     },
   },
 }
