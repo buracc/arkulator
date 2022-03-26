@@ -2,10 +2,12 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <span>
-          Be sure to adjust the Gold -> Crystal conversion rate for your server on the 'Currencies' page accordingly.
-          Can be checked by going to the in-game store (F4), and then to Currency Exchange.
-        </span>
+        <v-card>
+          <v-card-text>
+            Be sure to adjust the Gold -> Crystal conversion rate for your server on the 'Currencies' page accordingly.
+            Can be checked by going to the in-game store (F4), and then to Currency Exchange.
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
     <v-row>

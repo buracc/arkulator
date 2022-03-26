@@ -2,6 +2,10 @@
   <v-row>
     <v-col>
       <v-rating
+        color="white"
+        background-color="white"
+        empty-icon="mdi-close"
+        full-icon="mdi-check"
         :length="characters[charName].dailies.common[dailyName].max_completions"
         v-model="completions"
         clearable

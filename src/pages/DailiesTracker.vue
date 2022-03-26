@@ -1,38 +1,47 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row>
-      <v-col md="4" v-for="(char, charName) of characters" :key="charName">
-        <v-card>
-          <v-card-title> {{ charName }} ({{ char.ilvl }})</v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col>
-                <CommonDailyCardSection :char-name="charName">
-                  <AddDailyButton
-                    v-if="selectedCommonDaily && canAddCommonDaily(charName, selectedCommonDaily)"
-                    @clicked="addCommonDaily(charName, selectedCommonDaily)"
-                  />
-                </CommonDailyCardSection>
-              </v-col>
-            </v-row>
+      <v-col>
+        <div>
+          <v-card-title>My characters</v-card-title>
+          <v-expansion-panels multiple>
+            <v-expansion-panel v-for="(char, charName) of characters" :key="charName">
+              <v-expansion-panel-header>
+                <h3>{{ char.class }}: {{ charName }} ({{ char.ilvl }})</h3>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <div>
+                  <v-row>
+                    <v-col>
+                      <CommonDailyCardSection :char-name="charName">
+                        <AddDailyButton
+                          v-if="selectedCommonDaily && canAddCommonDaily(charName, selectedCommonDaily)"
+                          @clicked="addCommonDaily(charName, selectedCommonDaily)"
+                        />
+                      </CommonDailyCardSection>
+                    </v-col>
+                  </v-row>
 
-            <v-row>
-              <v-col>
-                <UnaCardSection :charName="charName">
-                  <AddDailyButton
-                    v-if="selectedReputation && canAddReputation(charName, selectedReputation)"
-                    @clicked="addReputation(charName, selectedReputation)"
-                  />
-                </UnaCardSection>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+                  <v-row>
+                    <v-col>
+                      <UnaCardSection :charName="charName">
+                        <AddDailyButton
+                          v-if="selectedReputation && canAddReputation(charName, selectedReputation)"
+                          @clicked="addReputation(charName, selectedReputation)"
+                        />
+                      </UnaCardSection>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col md="6">
+      <v-col>
         <v-card>
           <v-card-title> Track a daily </v-card-title>
           <v-card-text>
